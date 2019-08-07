@@ -19,7 +19,17 @@ const DevSchema = new Schema({
     avatar:{
         type: String,
         required: true,
-    }
+    },
+    //vetores similando um relacionamento em um banco sql, chave estrageira
+    //Os likes do usuario e os dislikes
+    likes:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Dev',
+    }], 
+    dislikes:[{
+        type: Schema.Types.ObjectId,
+        ref: 'Dev',
+    }],
 }, {
     timestamps: true, // Cria de forma automatica "createdAT, updateAt"
     //createdAT - armazenar de forma automatica a criação de um registro no banco de dados

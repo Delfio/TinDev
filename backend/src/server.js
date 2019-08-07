@@ -1,9 +1,12 @@
 const express = require('express'); //Cria um novo servidor de requisição e resposta
 const mongoose = require('mongoose');//Instanciando uma biblioteca de conexão que auxilia ao passar dados
+const cors = require('cors');//Biblioteca que permite a integração do backend com o frontend
+
 const routes = require('./routes');
 
 const server = express(); //
 
+server.use(cors());
 server.use(express.json());
 
 //Conectando ao um cluster e criando um banco de dados - mongobd atlas 

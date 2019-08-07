@@ -1,11 +1,15 @@
 //repassando o server
 const express = require('express');
+const DevController = require('./Controllers/DevController');
+const LikeController = require('./Controllers/LikeController');
+const DislikeController = require('./Controllers/DislikeController');
 
 const routes = express.Router();
 
-const DevController = require('./Controllers/DevController');
-
+routes.get('/devs', DevController.index);
 routes.post('/devs',DevController.store);
+routes.post('/devs/:devId/likes', LikeController.store); //Pegando o id através da URL
+routes.post('/devs/:devId/dislikes', DislikeController.store);
 
 //Expor uma informação -- return
 module.exports = routes;
