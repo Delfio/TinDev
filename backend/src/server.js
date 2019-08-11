@@ -4,10 +4,29 @@ const cors = require('cors');//Biblioteca que permite a integração do backend 
 
 const routes = require('./routes');
 
-const server = express(); //
+const app = express(); //
+const server = require('http').Server(app); //Junção de http com websocket(realtime) - ou seja funciona os dois
+const io = require('socket.io')(
+    server
+);//Socket para realtime - websocket
 
-server.use(cors());
-server.use(express.json());
+const connectedUsers = {};
+
+io.on('connection', socket => {
+    const {user} = socket.handshake.query;
+    connectedUsers[user] = socket.id
+});
+
+app.use((req, res, next) => {
+    req.io = io;
+    req.connectedUsers = connectedUsers;
+
+    return next();
+});
+
+
+app.use(cors());
+app.use(express.json());
 
 //Conectando ao um cluster e criando um banco de dados - mongobd atlas 
 //"o nome do banco = 'oministack8' - cria sozinho na hora de conectar, caso não existe"
@@ -22,7 +41,7 @@ mongoose.connect('mongodb+srv://oministack:sefode12@cluster0-y6min.mongodb.net/o
 
 //server.use(express.json); //Informando que todas as rotas serão padrão JSON
 
-server.use(routes);
+app.use(routes);
 
 server.listen(3333);
 
