@@ -101,8 +101,8 @@ export default function Main({ navigation }){
                 <Image style={styles.matchImage} source={itsAmatch}></Image>
                 <Image style={styles.matchAvatar} source={{ uri: matchDev.avatar }}></Image>
                 
-                <Text style={styles.matchName}>matchDev.name</Text>
-                <Text style={styles.matchBio}>matchDev.bio</Text>
+                <Text style={styles.matchName}>{matchDev.name}</Text>
+                <Text style={styles.matchBio}>{matchDev.bio}</Text>
 
                 <TouchableOpacity onPress={()=> setMatchDev(null)}>
                     <Text style={styles.closeMatch}>Fechar</Text>
